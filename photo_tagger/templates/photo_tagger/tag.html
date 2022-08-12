@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+    <section class="flex items-center justify-center mb-10">
+        <div>
+            <p class="text-5xl mb-5">Survey123 data</p>
+            {% include "photo_tagger/submission_view.html" %}
+        </div>
+    </section>
+
+    <section class="flex items-center justify-center mb-10">
+        <div>
+            <p class="text-5xl my-5">Attributes to update in MediaValet</p>
+            <table class="table-auto w-full border-x border-y text-xl">
+                <thead>
+                    <th class="border-r">Attribute name</th>
+                    <th>Attribute Value</th>
+                </thead>
+                <tbody>
+                    {% for name, value in attributes_to_tag.items %}
+                    <tr class="border-y font-mediumtext-left align-top">
+                        <td class="border-r pl-2 pr-4">{{ name }}</td>
+                        <td class="px-2 pl-2 pr-4">{{ value|linebreaks }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="flex items-center justify-center">
+        <div>
+            <p class="text-5xl mb-5">Assets that will be updated in MediaValet</p>
+            <ul class="justify-right text-2xl">
+                {% for asset_title in asset_titles %}
+                <li class="ml-12 list-disc">{{submission.camera_folder}}/{{asset_title}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="flex items-center justify-center mt-5 mb-32">
+        <div>
+            {% if require_docusign %}
+            <p class="text-2xl my-5">Request tagging of assets with DocuSign</p>
+            {% else %}
+            <p class="text-2xl my-5">Tag assets in MediaValet</p>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if require_docusign %}
+                <input type="submit" value="Request asset tagging"
+                    class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer justify-right">
+                {% else %}
+                <input type="submit" value="Tag assets"
+                    class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer justify-right">
+                {% endif %}
+            </form>
+        </div>
+    </section>
+
+</div>
+{% endblock content %}

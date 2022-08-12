@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+
+    <section class="flex items-center justify-center">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer jus
+                   tify-right">
+        </form>
+    </section>
+
+</div>
+{% endblock content %}

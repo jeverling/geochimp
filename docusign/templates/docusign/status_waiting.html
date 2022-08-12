@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+
+    <section class="flex items-center justify-center mb-12">
+        <div>
+            <p class="text-5xl mt-12">Request has not yet been granted.</p>
+            <p class="text-5xl mt-12">Current status: <span class="text-orange-500">{{ envelope_status }}</span></p>
+    </section>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+<table class="table-auto w-full border-x border-y text-xl">
+    <thead>
+        <th class="border-r">Metadata name</th>
+        <th>Value</th>
+    </thead>
+    <tbody>
+        {% for name, value in submission.submission_cleaned.values %}
+        <tr class="border-y font-mediumtext-left">
+            <td class="border-r pl-2 pr-4">{{ name }}</td>
+            <td class="px-2 pl-2 pr-4">{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+-r base.txt
+
+django-browser-reload==1.6.0
+ipdb==0.13.9
+ipython==8.4.0
+Pillow==9.2.0
+python-dotenv==0.20.0

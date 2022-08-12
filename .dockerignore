@@ -1,0 +1,22 @@
+.env
+env.example
+notebooks/
+
+__pycache__/
+*.pyc
+.mypy_cache/
+*.swp
+
+dist/
+
+# this has to be mounted into the container,
+# must never be added to the image
+private.key
+public.key
+
+db.sqlite3
+/media/
+/static/
+
+# should be generated inside image, not copied into
+node_modules/

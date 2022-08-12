@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+    <section class="flex items-center justify-center ">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+            <a href="{% url 'get_survey_submission' action='upload' %}">
+                <div class="flex justify-center text-7xl border-2 border-gray-800 rounded-xl p-12 bg-green-700">
+                    <p class="pr-5">
+                        <img src="{% static 'img/upload-svgrepo-com.svg' %}" height="300" width="300"
+                            alt="Upload new photos" />
+                    </p>
+                    <p class="text-5xl">Upload new photos</p>
+                </div>
+            </a>
+
+            <a href="{% url 'get_survey_submission' action='tag' %}">
+                <div class="flex justify-center text-7xl border-2 border-gray-800 rounded-xl p-12 bg-green-700">
+                    <p class="pr-5">
+                        <img src="{% static 'img/tag-svgrepo-com.svg' %}" height="300" width="300"
+                            alt="Tag existing photos" />
+                    </p>
+                    <p class="text-5xl">Tag existing photos</p>
+                </div>
+            </a>
+
+            <a href="{% url 'create_map' %}">
+                <div class="flex justify-center text-7xl border-2 border-gray-800 rounded-xl p-12 bg-green-700">
+                    <p class="pr-5">
+                        <img src="{% static 'img/floded-map-with-placeholder-svgrepo-com.svg' %}" height="325"
+                            width="325" alt="Create new trap-map" />
+                    </p>
+                    <p class="text-5xl">Create new trap-map</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+    {% endblock content %}

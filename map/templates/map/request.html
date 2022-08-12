@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+    <section class="flex items-center justify-center">
+        <div>
+            <p class="text-2xl mt-12">
+                You have created a map for camera trap photos.
+                Please find the link below, and check that the map looks like intended
+            </p>
+            <p class="mt-12">
+                <a href="{{ webmap_url }}" target="_blank">{{ webmap_url }}</a>
+            </p>
+            <p class="text-2xl mt-12">
+                Once the map looks correct, you can use the link below to request publishing of the map.
+                <br />
+                Please take note of the link and open it to request publishing.
+            </p>
+            <p class="mt-12">
+                <a href="{{ complete_powerform_url }}" target="_blank">{{ complete_powerform_url }}</a>
+            </p>
+        </div>
+    </section>
+</div>
+{% endblock content %}

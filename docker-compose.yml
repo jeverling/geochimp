@@ -1,0 +1,71 @@
+version: "2.4"
+
+services:
+  db:
+    image: postgis/postgis:14-3.2
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - /opt/docker/volumes/geochimp/db/data/:/var/lib/postgresql/data/
+
+  app:
+    image: geochimp
+    build:
+      context: .
+    environment:
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      DEBUG: ${DEBUG}
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
+      # If you want to use sqlite in docker-compose setup, don't pass this variable!
+      DATABASE_URL: ${DATABASE_URL}
+      CAMERAFOLDER_REGEX: ${CAMERAFOLDER_REGEX}
+      CAMERA_SETUP_DATE_FORMAT: ${CAMERA_SETUP_DATE_FORMAT}
+      METADATA_ATTRIBUTES: ${METADATA_ATTRIBUTES}
+      METADATA_ATTRIBUTES_DIRECT: ${METADATA_ATTRIBUTES_DIRECT}
+      METADATA_DESCRIPTION_ATTRIBUTE: ${METADATA_DESCRIPTION_ATTRIBUTE}
+      OVERWRITE_ASSETS_WITH_GPS_EXIF: ${OVERWRITE_ASSETS_WITH_GPS_EXIF}
+      REQUIRE_DOCUSIGN_FOR_ASSET_TAGGING: ${REQUIRE_DOCUSIGN_FOR_ASSET_TAGGING}
+      REQUIRE_DOCUSIGN_FOR_ASSET_UPLOAD: ${REQUIRE_DOCUSIGN_FOR_ASSET_UPLOAD}
+      DOCUSIGN_API_ACCOUNT_ID: ${DOCUSIGN_API_ACCOUNT_ID}
+      DOCUSIGN_USER_ID: ${DOCUSIGN_USER_ID}
+      DOCUSIGN_INTEGRATION_KEY: ${DOCUSIGN_INTEGRATION_KEY}
+      DOCUSIGN_OAUTH_HOST_NAME: ${DOCUSIGN_OAUTH_HOST_NAME}
+      DOCUSIGN_BASE_URL: ${DOCUSIGN_BASE_URL}
+      DOCUSIGN_RECIPIENTS: ${DOCUSIGN_RECIPIENTS}
+      DOCUSIGN_ASSET_TAGGING_POWERFORM_URL: ${DOCUSIGN_ASSET_TAGGING_POWERFORM_URL}
+      DOCUSIGN_MAP_PUBLISH_POWERFORM_URL: ${DOCUSIGN_MAP_PUBLISH_POWERFORM_URL}
+      ESRI_SURVEY_ID: ${ESRI_SURVEY_ID}
+      ESRI_USERNAME: ${ESRI_USERNAME}
+      ESRI_PASSWORD: ${ESRI_PASSWORD}
+      MEDIAVAULT_BASE_CATEGORY: ${MEDIAVAULT_BASE_CATEGORY}
+      MEDIAVALET_SUBSCRIPTION_KEY: ${MEDIAVALET_SUBSCRIPTION_KEY}
+      MEDIAVALET_CLIENT_ID: ${MEDIAVALET_CLIENT_ID}
+      MEDIAVALET_CLIENT_SECRET: ${MEDIAVALET_CLIENT_SECRET}
+      MEDIAVALET_USERNAME: ${MEDIAVALET_USERNAME}
+      MEDIAVALET_PASSWORD: ${MEDIAVALET_PASSWORD}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    volumes:
+      - /opt/docker/volumes/geochimp/app/media/:/app/media/
+      - /app/static/
+
+  nginx:
+    image: nginx:stable
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+    volumes_from:
+      - "app"
+    # in development you'll usually use the Django development server
+    # uncomment the port when using nginx
+    # ports:
+    #   - 80:80

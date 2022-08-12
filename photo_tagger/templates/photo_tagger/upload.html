@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load tailwind_filters %}
+
+
+{% block content %}
+{{ block.super }}
+<div class="container mx-auto">
+
+    <section class="flex items-center justify-center">
+        {% include "photo_tagger/submission_view.html" %}
+    </section>
+
+    <section class="flex items-center justify-center mb-12">
+        <div>
+            <p class="text-5xl mt-12">Upload photos to MediaValet</p>
+            <div class="my-6">
+                <p>
+                    You can use the <i>Browse...</i> button and select multiple files (CTRL+Click or using the mouse),
+                    or
+                    just drag&amp;drop multiple photos
+                    onto the <i>Browse...</i> button.</p>
+                <p>After the upload has finished, you'll be redirected to the view for tagging the uploaded photos with
+                    the attributes extracted from Survey123.</p>
+                <form action="" method="post" enctype="multipart/form-data" class="my-8">
+                    {% csrf_token %}
+                    <div>
+                        {{ form|crispy }}
+                    </div>
+                    <input type="submit" value="Upload photos" class="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer jus
+                   tify-right">
+                </form>
+            </div>
+            <div>
+    </section>
+</div>
+
+{% endblock content %}
